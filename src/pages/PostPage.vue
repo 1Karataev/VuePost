@@ -23,7 +23,7 @@
       </template>
 
       <template #content style="margin-bottom: 0">
-        <Card style="margin: 5px 0 5px 0; width: 100% " v-for="comment in $store.state.comments">
+        <Card style="margin: 5px 0 5px 0; width: 100% " v-for="comment in this.$store.state.comments">
 
           <template #title style="align-items: center">
             {{comment.email}}
@@ -41,7 +41,7 @@
         <Message v-for="msg of message" severity='success'> Добавлен Ваш комментарий : {{this.title}}</Message>
         <InputText style="width: 85%" type="text" v-model="title" />
         <Button style="width: 15%" icon="pi pi-times" label="Добавить"
-          @click="this.$store.commit('setTitle', this.title) ; this.$store.dispatch('addcomment'); addMessages() " />
+          @click="this.$store.commit('setTitle', this.title) ; this.$store.dispatch('addcomment'); addMessages(); this.$store.commit('setComments', [...this.$store.state.comments, { email: 'Аноним', name: 'Ваш комментарий', body: this.title }]) " />
 
       </template>
 
@@ -54,15 +54,14 @@
 
 <script>
 
-import axios from 'axios';
-
 
 export default {
   
   data() {
     return {
     title:this.title,
-    message:[]
+    message:[],
+    comments: [...this.$store.state.comments]
 
   }
   },

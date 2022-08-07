@@ -24,7 +24,7 @@ export default createStore({
       
     },
     setComments(state, comments){
-      state.comments = comments
+      state.comments = [...comments]
     },
      setUserId(state, id){
       state.userId = id
